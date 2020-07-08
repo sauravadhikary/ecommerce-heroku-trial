@@ -7,23 +7,3 @@ body {
 .card-body {
   vertical-align: baseline;
 }
-.iconcont{
-  flex-wrap: wrap;
-  height: 2.5em;
-  width: 2.5em;
-  padding: 10px;
-  margin: 0 10px;
-  border-radius: 100%;
-  background-color: blue;
-  text-align: center;
-}
-.watchlisticon{
-  height: 1.5em;
-}
-
-.iconarea{
-  display: flex;
-  padding: 5px;
-  margin: 10px;
-  vertical-align: bottom;
-}
