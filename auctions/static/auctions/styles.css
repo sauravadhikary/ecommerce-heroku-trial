@@ -1,0 +1,9 @@
+body {
+  padding: 10px;
+}
+.card-columns {
+  text-align: center;
+}
+.card-body {
+  vertical-align: baseline;
+}
