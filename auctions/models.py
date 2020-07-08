@@ -44,4 +44,3 @@ class Comment(models.Model):
     comment_by = models.ForeignKey(User, on_delete= models.PROTECT, related_name="allcomments", null=True)
     mycomment = models.TextField( null=True)
     timestamp = models.DateTimeField(auto_now_add=True , null=True)
-    # timestamp = models.DateTimeField(auto_now_add=True)
