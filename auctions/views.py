@@ -68,8 +68,14 @@ def listings(request, listid):
     listings = AuctionListing.objects.all()
     for list in listings:
         if listid == list.pk:   
+            if request.method == "POST":
+                commentval = request.POST["comment"]
+                cmt = Comment(listing= list, mycomment=commentval, comment_by= request.user)
+                cmt.save()
+            else:
+                pass
+            
             return render(request, "auctions/listing.html", {
                 "listing": list,
             })
-
     return HttpResponse("Error 404 Listing Not Found")
