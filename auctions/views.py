@@ -79,3 +79,25 @@ def listings(request, listid):
                 "listing": list,
             })
     return HttpResponse("Error 404 Listing Not Found")
+
+def bid(request, listid):
+    listings = AuctionListing.objects.all()
+    for list in listings:
+        if listid == list.pk:   
+            if request.method == "POST":
+                bidrate = int(request.POST["bidvalue"])
+                higestbid = list.startingbid
+                if bidrate > higestbid:
+                    newBid = Bid(listing=list, bid_by=request.user, mybid=bidrate )
+                    newBid.save()
+                    list.startingbid = bidrate
+                    return render(request, "auctions/listing.html", {
+                    "listing": list,
+                })
+                else:
+                    return HttpResponse("Error: Bid Not Enough")
+            else:
+                pass
+            
+    return HttpResponse("Error 404 Listing Not Found")
+
