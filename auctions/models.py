@@ -36,7 +36,7 @@ class Bid(models.Model):
     # timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Bid-{self.pk}: $ {self.mybid}  -- {self.bid_by}"
+        return f"{self.bid_by} bids $ {self.mybid} "
 
 
 class Comment(models.Model):

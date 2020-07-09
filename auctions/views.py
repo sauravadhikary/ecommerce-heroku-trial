@@ -86,12 +86,15 @@ def bid(request, listid):
             newBid.save()
             list.startingbid = bidrate
             list.save()
-            return render(request, "auctions/listing.html", {
-                "listing": list,
-            })
+            return HttpResponseRedirect(reverse("listingview", args=[listid]))
         else:
             return HttpResponse("Error: Bid Not Enough")
     else:
         pass
             
 
+def mylisting(request):
+    myalllisting = AuctionListing.objects.filter(created_by=request.user)
+    return render(request, "auctions/mylisting.html", {
+        "listings": myalllisting,
+    })
