@@ -98,3 +98,9 @@ def mylisting(request):
     return render(request, "auctions/mylisting.html", {
         "listings": myalllisting,
     })
+
+def mybids(request):
+    allbids = request.user.allbids.all()
+    return render(request, "auctions/mybids.html", {
+        "bids": allbids,
+    })

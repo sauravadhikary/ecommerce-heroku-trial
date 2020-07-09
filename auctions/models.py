@@ -24,7 +24,7 @@ class AuctionListing(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True , null=True)
 
     def __str__(self):
-        return f"{self.pk}: {self.title} -- {self.created_by}"
+        return f"{self.pk}: {self.title} auctioned by Seller: {self.created_by}"
     
 
 
@@ -44,3 +44,4 @@ class Comment(models.Model):
     comment_by = models.ForeignKey(User, on_delete= models.PROTECT, related_name="allcomments", null=True)
     mycomment = models.TextField( null=True)
     timestamp = models.DateTimeField(auto_now_add=True , null=True)
+

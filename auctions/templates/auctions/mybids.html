@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+{% block body %}
+{% if user.is_authenticated %}
+All Bids: <br>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">Bid Id</th>
+                            <th scope="col">Bid listing</th>
+                            <th scope="col">Current Bid</th>
+                            <th scope="col">Time of Bid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for bid in bids %}
+                            <tr>
+                            <th scope="row">{{bid.pk}}</th>
+                            <td>{{bid.listing}}</td>
+                            <td>{{bid.mybid}}</td>
+                            <td>{{bid.timestamp}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody> 
+                    </table>
+{% else %}
+	<h1>Please Login To View Your Bids</h1>
+{% endif %}
+{% endblock %}
