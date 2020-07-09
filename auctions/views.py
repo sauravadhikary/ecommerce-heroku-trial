@@ -65,39 +65,33 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def listings(request, listid):
-    listings = AuctionListing.objects.all()
-    for list in listings:
-        if listid == list.pk:   
-            if request.method == "POST":
-                commentval = request.POST["comment"]
-                cmt = Comment(listing= list, mycomment=commentval, comment_by= request.user)
-                cmt.save()
-            else:
-                pass
-            
+    list = AuctionListing.objects.get(pk=listid)
+    if request.method == "POST":
+        comment = request.POST["comment"]
+        cmt = Comment(listing= list, mycomment=comment, comment_by= request.user)
+        cmt.save()
+    else:
+        pass    
+    return render(request, "auctions/listing.html", {
+        "listing": list,
+    })
+
+def bid(request, listid):
+    list = AuctionListing.objects.get(pk=listid)
+    if request.method == "POST":
+        bidrate = int(request.POST["bidvalue"])
+        higestbid = list.startingbid
+        if bidrate > higestbid:
+            newBid = Bid(listing=list, bid_by=request.user, mybid=bidrate )
+            newBid.save()
+            list.startingbid = bidrate
+            list.save()
             return render(request, "auctions/listing.html", {
                 "listing": list,
             })
-    return HttpResponse("Error 404 Listing Not Found")
-
-def bid(request, listid):
-    listings = AuctionListing.objects.all()
-    for list in listings:
-        if listid == list.pk:   
-            if request.method == "POST":
-                bidrate = int(request.POST["bidvalue"])
-                higestbid = list.startingbid
-                if bidrate > higestbid:
-                    newBid = Bid(listing=list, bid_by=request.user, mybid=bidrate )
-                    newBid.save()
-                    list.startingbid = bidrate
-                    return render(request, "auctions/listing.html", {
-                    "listing": list,
-                })
-                else:
-                    return HttpResponse("Error: Bid Not Enough")
-            else:
-                pass
+        else:
+            return HttpResponse("Error: Bid Not Enough")
+    else:
+        pass
             
-    return HttpResponse("Error 404 Listing Not Found")
 
