@@ -4,43 +4,35 @@
 <html lang="en">
     <head>
         <title>{% block title %}Auctions{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-    <div class="container">      
-        <ul class="nav">
-            <li class="nav-item">
-                <img src="{% static 'image/logo.png' %}" style="height:40px">
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">All Listings</a>
-            </li>
+    <header class="text-gray-700 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <img src="{% static 'image/logo.png' %}" style="height:40px">
+          </a>
+          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <a class="mr-5 hover:text-gray-900" href="{% url 'index' %}">All Listings</a>
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'mylisting' %}">My Listings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'mybids' %}">My Bids</a>
-                </li>
-                <li class="nav-item">
-                 <a class="nav-link" href="{% url 'logout' %}">
-                    Logout : <strong>{{ user.username }}</strong>.
-                    </a>
-                </li>
-
+            <a class="mr-5 hover:text-gray-900" href="{% url 'mylisting' %}">My Listings</a>
+            <a class="mr-5 hover:text-gray-900" href="{% url 'mybids' %}">My Bids</a>
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
+            <a class="mr-5 hover:text-gray-900" href="{% url 'login' %}">Log In</a>
+            <a class="mr-5 hover:text-gray-900" href="{% url 'register' %}">Register</a>
             {% endif %}
-        </ul>
-        <hr>
+          </nav>
+          <a href="{% url 'logout' %}"> 
+          <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">Logout : <strong>{{ user.username }}</strong>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          </a>
+        </div>
+      </header> 
         {% block body %}
         {% endblock %}
-    </div>  
     </body>
 </html>
